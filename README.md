@@ -1,5 +1,5 @@
-#FTP Service Project
-
+FTP Service Project
+-----
 FTP server allowing:
 
 - uploading, modifying and downloading files, with permissions depending on authorization,
