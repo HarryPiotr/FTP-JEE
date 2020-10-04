@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Logowanie</title>
+    </h:head>
+    <h:body>
+        <p:panel style="top: 50%;left: 50%;margin-right: 50%;transform: translate(-50%, -50%);position: absolute">
+            <h:form>
+                <h:message for="pwd"/>
+                <p:outputLabel value="Login:"/>
+                <p:inputText id="username" value="#{loginBean.username}" /> 
+                <br/><br/>
+                <p:outputLabel value="Hasło:"/>
+                <p:password id="pwd" value="#{loginBean.password}" />
+                <br/><br/>
+                <p:commandButton id="login" type="submit" action="#{loginBean.tryLogin}" ajax="false" value="Login" />
+                <br/><br/>
+                <p:commandButton id="anon" type="submit" action="#{loginBean.loginAnonymous}" ajax="false" value="Wejdź bez logowania" />
+            </h:form>
+        </p:panel>
+    </h:body>
+</html>

@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Baza użytkowników</title>
+    </h:head>
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{userBean.onLoad}" />
+    </f:metadata>
+    <h:body>
+        <div style="padding: 30px 60px 30px 60px">
+            <h:form>
+                <p:button value="Wróć" outcome="menu" style="align-self: flex-start"/>
+                <br/><br/>
+                <p:dataTable id="dtTbl" value="#{userBean.usersList}" var="user" paginator="true" rows="10" paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+                    <f:facet name="header">
+                        <p:outputLabel value="Jesteś: #{userBean.username} (#{userBean.id})" />
+                        <br/>
+                        <p:outputLabel value="Twój poziom uprawnień: #{userBean.rightsDescriptor}" />
+                    </f:facet>
+                    <p:column headerText="ID" width="5%">
+                        <div align="right">
+                            <h:outputText value="#{user.id}"/>
+                        </div>
+                    </p:column>
+                    <p:column headerText="Login">
+                        <div align="right">
+                            <h:outputText value="#{user.username}"/>
+                        </div>
+                    </p:column>
+                    <p:column headerText="Ostatnio zalogowany" width="15%">
+                        <div align="right">
+                            <h:outputText value="#{user.lastLogin}"/>
+                        </div>
+                    </p:column>
+                    <p:column headerText="PU" width="5%">
+                        <div align="right">
+                            <h:outputText value="#{user.isPrivileged}"/>
+                        </div>
+                    </p:column>
+                    <p:column headerText="Usuń" width="5%">
+                        <div align="center">
+                            <p:commandButton icon="ui-icon-trash" action="#{userBean.remove(user)}" ajax="false" disabled="#{!(userBean.isPU)}" />
+                        </div>
+                    </p:column>
+                </p:dataTable>
+                <br/><br/><br/>
+                <p:panel visible="#{userBean.isPU}" >
+                    <p:outputLabel value="ID" />
+                    <br/>
+                    <p:inputText value="#{userBean.new_id}" type="number" />
+                    <br/><br/>
+                    <p:outputLabel value="Nazwa Użytkownika" />
+                    <br/>
+                    <p:inputText value="#{userBean.new_username}" />
+                    <br/><br/>
+                    <p:outputLabel value="Hasło" />
+                    <br/>
+                    <p:password value="#{userBean.new_password}" />
+                    <br/><br/>
+                    <p:outputLabel value="Prawa Administratora" />
+                    <br/>
+                    <p:selectBooleanCheckbox value="#{userBean.new_privileged}"/>
+                    <br/><br/>
+                    <p:commandButton id="submit" ajax="false" action="#{userBean.modify}" value="Dodaj/Modyfikuj użytkownika"/>
+                </p:panel>
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

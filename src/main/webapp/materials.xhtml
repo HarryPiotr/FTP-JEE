@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Materiały</title>
+    </h:head>
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{userBean.onLoad}" />
+    </f:metadata>
+    <h:body>
+        <div style="padding: 30px 60px 30px 60px">
+            <h:form>
+                <h:button value="Wróć" outcome="menu" />
+                <br/><br/>
+
+                <h:button value="Dodaj plik" outcome="addfile" />
+                <br/><br/>
+
+                <h:inputText value="#{materialsBean.new_category}" rendered="#{userBean.isPU}" />
+                <h:commandButton action="#{materialsBean.addCategory}" value="Dodaj kategorię" rendered="#{userBean.isPU}" />
+                <br/><br/>
+
+                <p:dataTable value="#{materialsBean.categoryList}" var="category" >
+                    <f:facet name="header">
+                        <p:outputLabel value="Jesteś: #{userBean.username} (#{userBean.id})" />
+                        <br/>
+                        <p:outputLabel value="Twój poziom uprawnień: #{userBean.rightsDescriptor}" />
+                    </f:facet>
+                    <p:column headerText="Nazwa">
+                        <p:commandLink value="#{category.name}" ajax="false" action="#{materialsBean.chooseCategory(category)}" />
+                    </p:column>
+                    <p:column headerText="Modyfikuj" width="5%">
+                        <div align="center">
+                            <p:commandButton icon="ui-icon-wrench" action="#{materialsBean.goToRename(category)}" ajax="false" disabled="#{!(userBean.isPU)}" />
+                        </div>
+                    </p:column>
+                    <p:column headerText="Usuń" width="5%">
+                        <div align="center">
+                            <p:commandButton icon="ui-icon-trash" action="#{materialsBean.removeCategory(category)}" ajax="false" disabled="#{!(userBean.isPU)}" />
+                        </div>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

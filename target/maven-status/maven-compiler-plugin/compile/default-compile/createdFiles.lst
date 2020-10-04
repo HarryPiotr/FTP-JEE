@@ -1,0 +1,16 @@
+jee\CategoryEntity.class
+jee\FileEntity_.class
+jee\UserEntity.class
+jee\CategoryEntity$CategoryEntityBuilder.class
+api\CategoryAPI.class
+jee\UserEntity_.class
+jsf\UserBean.class
+jee\FileEntity.class
+jsf\LoginBean.class
+jee\CategoryEntity_.class
+jee\UserEntity$UserEntityBuilder.class
+jsf\MaterialsBean.class
+api\FileAPI.class
+jee\HiberManager.class
+api\UserAPI.class
+jee\FileEntity$FileEntityBuilder.class

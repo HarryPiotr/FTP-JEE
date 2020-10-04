@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Plik...</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:outputPanel id="fileDetail" style="text-align:center;">
+                    <p:commandButton action="categoryfiles" value="Wróć" ajax="false" style="float: left" />
+                    <br/><br/>
+                    <p:panelGrid  columns="2" columnClasses="label,value" style="border-style: none">
+                        <p:outputLabel value="Id:" />
+                        <p:outputLabel value="#{materialsBean.fileToModify.id}" />
+
+                        <p:outputLabel value="Nazwa:" />
+                        <p:inputText value="#{materialsBean.fileToModify.name}" />
+
+                        <p:outputLabel value="Kategoria:" />
+                        <p:selectOneMenu value="#{materialsBean.fileToModify.category_id}">
+                            <f:selectItems value="#{materialsBean.categoryList}" var="category" itemValue="#{category.id}" itemLabel="#{category.name}" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Widoczność:" />
+                        <p:selectOneMenu value="#{materialsBean.fileToModify.visibility}">
+                            <f:selectItems value="#{materialsBean.possibleViewmodes}" var="visibility" itemValue="#{visibility}" itemLabel="#{visibility}" />
+                        </p:selectOneMenu>                    
+                    </p:panelGrid>
+                    <br/>
+                    <p:commandButton action="#{materialsBean.modifyFile(materialsBean.fileToModify)}" value="Zmień!" ajax="false" style="float: left" />
+            </p:outputPanel>
+        </h:form>
+    </h:body>
+</html>
+

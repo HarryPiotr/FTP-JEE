@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Pliki</title>
+    </h:head>
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{userBean.onLoad}" />
+    </f:metadata>
+    <h:body>
+        <div style="padding: 30px 60px 30px 60px">
+            <h:form enctype="multipart/form-data">
+                <h:button value="Wróć" outcome="materials" />
+                <br/><br/>
+                <div style="border-top-style: double; border-bottom-style: double; align-items: center; width: fit-content; padding-top: 10px; padding-bottom: 10px">
+                    <h:outputText value="Widzialność:"/>
+                    <br/>
+                    <p:selectOneRadio id="vModes" value="#{materialsBean.chosenViewmode}" layout="grid" columns="1">
+                        <f:selectItems value="#{materialsBean.possibleViewmodes}" var="vM" itemLabel="#{vM}" itemValue="#{vM}"/>
+                    </p:selectOneRadio>
+                    <br/>
+                    <h:inputFile value="#{materialsBean.file}"  />
+                    <br/><br/>
+                    <h:commandButton value="Dodaj" action="#{materialsBean.upload()}" />
+                </div>
+                <br/>
+                <p:dataTable value="#{materialsBean.browsedCategoryFiles}" var="file">
+                    <f:facet name="header">
+                        <p:outputLabel value="Jesteś: #{userBean.username} (#{userBean.id})" />
+                        <br/>
+                        <p:outputLabel value="Twój poziom uprawnień: #{userBean.rightsDescriptor}" />
+                    </f:facet>
+                    <p:column headerText="Nazwa" width="60%">
+                        <div align="center">
+                            <p:commandLink value="#{file.name}" ajax="false">
+                                <p:fileDownload value="#{materialsBean.download(file)}" />
+                            </p:commandLink>
+                            <p:outputLabel value="(read: #{file.getCustomVisibility()})" style="font-size: x-small"/>
+                        </div>
+                    </p:column>
+                    <p:column headerText="Typ">
+                        <div align="right">
+                            <h:outputText value="#{file.content_type}" />
+                        </div>
+                    </p:column>
+                    <p:column headerText="Właściciel">
+                        <div align="right">
+                            <h:outputText value="#{file.owner_name}" styleClass="ui-icon-key" />
+                        </div>
+                    </p:column>
+                    <p:column headerText="Dodano" width="8%">
+                        <div align="right">
+                            <h:outputText value="#{file.getReadableTimestamp()}" />
+                        </div>
+                    </p:column>
+                    <p:column headerText="Rozmiar">
+                        <div align="right">
+                            <h:outputText value="#{materialsBean.noBytesToString(file.size)}" />
+                        </div>
+                    </p:column>
+                    <p:column headerText="Modyfikuj" width="5%">
+                        <div align="center">
+                            <p:commandButton icon="ui-icon-wrench" action="#{materialsBean.chooseFileToModify(file)}" ajax="false" disabled="#{!(userBean.allowedToModify(file))}"/>
+                        </div>
+                    </p:column>
+                    <p:column headerText="Usuń" width="5%">
+                        <div align="center">
+                            <p:commandButton icon="ui-icon-trash" action="#{materialsBean.removeFile(file)}" ajax="false" disabled="#{!(userBean.allowedToRemove(file))}" />
+                        </div>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Panel</title>
+    </h:head>
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{userBean.onLoad}" />
+    </f:metadata>
+    <h:body>
+        <p:panel style="top: 50%;left: 50%;margin-right: -50%;transform: translate(-50%, -50%);position: absolute">
+            <h:form>
+                <p:outputLabel value="Witaj, #{username}" style="left: 50%;transform: translate(-50%, 0%)"/>
+                <br/><br/>
+                <p:commandButton id="userbase" value="Baza użytkowników" action="userbase" ajax="false" style="left: 50%;transform: translate(-50%, 0%)"/>
+                <br/><br/>
+                <p:commandButton id="matbase" value="Baza materiałów" action="materials" ajax="false" style="left: 50%;transform: translate(-50%, 0%)"/>
+                <br/><br/><br/>
+                <p:commandButton id="logout" value="Wyloguj" action="#{loginBean.logout}" style="left: 50%;transform: translate(-50%, 0%)"/>
+            </h:form>
+        </p:panel>
+    </h:body>
+</html>
+

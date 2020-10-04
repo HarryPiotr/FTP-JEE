@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Dodaj Plik</title>
+    </h:head>
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{userBean.onLoad}" />
+    </f:metadata>
+    <h:body>
+        <div style="padding: 30px 60px 30px 60px">
+            <h:form enctype="multipart/form-data" >
+                <h:button value="Wróć" outcome="materials" />
+                <br/><br/>
+                <h:outputText value="Kategoria:"/>
+                <br/>
+                <h:selectOneMenu value="#{materialsBean.chosenCategoryId}">
+                    <f:selectItems value="#{materialsBean.categoryList}" var="category" itemValue="#{category.id}" itemLabel="#{category.name}" />
+                </h:selectOneMenu>
+                <br/><br/>
+                <h:outputText value="Widzialność:"/>
+                <br/>
+                <p:selectOneRadio id="vModes" value="#{materialsBean.chosenViewmode}" layout="grid" columns="1">
+                    <f:selectItems value="#{materialsBean.possibleViewmodes}" var="vM" itemLabel="#{vM}" itemValue="#{vM}"/>
+                </p:selectOneRadio>
+                <br/>
+                <h:inputFile value="#{materialsBean.file}" />
+                <br/><br/>
+                <h:commandButton value="Dodaj" action="#{materialsBean.upload()}" />
+            </h:form>
+        </div>
+    </h:body>
+</html>
